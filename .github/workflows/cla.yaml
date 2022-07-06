@@ -12,12 +12,12 @@ jobs:
       - name: "CLA Assistant"
         if: (github.event.comment.body == 'recheck' || github.event.comment.body == 'I have read the CLA Document and I hereby sign the CLA') || github.event_name == 'pull_request_target'
         # Beta Release
-        uses: cla-assistant/github-action@v2.1.3-beta
+        uses: tsic404/github-action@master
 
         env:
           APP_ID: 217540
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PERSONAL_ACCESS_TOKEN: ${{ secrets.APP_PRIVATE_KEY }}
+          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
 
         with:
           path-to-signatures: 'signatures/version1/cla.json'
@@ -28,7 +28,11 @@ jobs:
 
          #below are the optional inputs - If the optional inputs are not given, then default values will be taken
           #remote-organization-name: enter the remote organization name where the signatures should be stored (Default is storing the signatures in the same repository)
-          remote-repository-name:  cla-manager
+          remote-repository-name:  cla-data
+          custom-notsigned-prcomment: '<br/>
+感谢您的提交，我们非常感谢。 像许多开源项目一样，在接受您的贡献之前，我们要求您签署我们的[贡献者许可协议](${input.getPathToDocument()})。 您只需发布与以下格式相同的评论即可签署[贡献者许可协议](${input.getPathToDocument()})。<br/>
+Thank you for your submission, we really appreciate it. Like many open-source projects, we ask that $you sign our [Contributor License Agreement](${input.getPathToDocument()}) before we can accept your contribution. You can sign the CLA by just posting a Pull Request Comment same as the below format.
+<br/>'
           #create-file-commit-message: 'For example: Creating file for storing CLA Signatures'
           #signed-commit-message: 'For example: $contributorName has signed the CLA in #$pullRequestNo'
           #custom-notsigned-prcomment: 'pull request comment with Introductory message to ask new contributors to sign'
