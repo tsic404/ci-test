@@ -5,11 +5,6 @@ on:
   pull_request_target:
     types: [opened,closed,synchronize]
 
-env:
-  APP_ID: 217540
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  PERSONAL_ACCESS_TOKEN: ${{ secrets.APP_PRIVATE_KEY }}
-
 jobs:
   CLAssistant:
     runs-on: ubuntu-latest
@@ -18,6 +13,12 @@ jobs:
         if: (github.event.comment.body == 'recheck' || github.event.comment.body == 'I have read the CLA Document and I hereby sign the CLA') || github.event_name == 'pull_request_target'
         # Beta Release
         uses: cla-assistant/github-action@v2.1.3-beta
+
+        env:
+          APP_ID: 217540
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.APP_PRIVATE_KEY }}
+
         with:
           path-to-signatures: 'signatures/version1/cla.json'
           path-to-document: 'https://github.com/cla-assistant/github-action/blob/master/SAPCLA.md' # e.g. a CLA or a DCO document
