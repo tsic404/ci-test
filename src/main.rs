@@ -3,6 +3,7 @@ fn main() {
     println!("Hello, cargo!");
     println!("Hello, cla!");
     println!("Hello, test!");
+    println!("Hello, test2!");
     
     
 }
