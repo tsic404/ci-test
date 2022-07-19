@@ -14,7 +14,7 @@ concurrency:
 jobs:
   check_job:
     runs-on: ubuntu-latest
-    if: github.event_name == pull_request_target
+    if: ${{ github.event_name == 'pull_request_target' }}
     steps:
     - name: echo env
       run: |
