@@ -1,0 +1,32 @@
+on:
+  pull_request_target:
+    paths-ignore:
+      - ".github/workflows/**"
+
+  pull_request:
+    types:
+      - closed
+
+concurrency:
+  group: ${{ github.workflow }}-pull/${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  check_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: echo env
+      shell: bash
+      run: |
+        echo "GITHUB_ENENT_NAME: $GITHUB_EVENT_NAME"
+
+  merged_job:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: merged
+      shell: bash
+      run: |
+        echo "merged"
+        echo "GH_ENEVT_NAME: $GITHUB_EVENT_NAME"
+
