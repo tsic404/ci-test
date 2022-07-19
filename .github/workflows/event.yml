@@ -14,19 +14,22 @@ concurrency:
 jobs:
   check_job:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request_target' }}
     steps:
     - name: echo env
-      shell: bash
       run: |
+        echo ${{ github.event.pull_request }}
         echo "GITHUB_ENENT_NAME: $GITHUB_EVENT_NAME"
+        echo ${{ github.event.pull_request }}
 
   merged_job:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - name: merged
-      shell: bash
       run: |
         echo "merged"
+        echo ${{ github.event }}
         echo "GH_ENEVT_NAME: $GITHUB_EVENT_NAME"
+        echo ${{ github.event.pull_request }}
 
