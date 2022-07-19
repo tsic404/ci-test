@@ -1,0 +1,28 @@
+on:
+  pull_request_target:
+    paths-ignore:
+      - ".github/workflows/**"
+
+  pull_request:
+    types:
+      - closed
+
+concurrency:
+  group: ${{ github.workflow }}-pull/${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  check_job:
+    runs-on: ubuntu-latest
+    step:
+    - run: |
+      echo ${{ GITHUB_EVENT_NAME }}
+
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+      echo The PR was merged
+      echo ${{ GITHUB_EVENT_NAME }}
+
